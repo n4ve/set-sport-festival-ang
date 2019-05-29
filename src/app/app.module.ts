@@ -15,6 +15,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule } from '@angular/forms';
 import { UploadComponent } from './components/upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -49,6 +50,7 @@ const routes: Routes = [
     HttpClientModule,
     NgxDaterangepickerMd.forRoot(),
     RouterModule.forRoot(routes),
+    NgCircleProgressModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

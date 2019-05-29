@@ -1,3 +1,45 @@
-<p>
-  around-the-world works!
-</p>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-12">
+            <h1 class="font-harry">Rund Around The World</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <circle-progress #progress 
+      [percent]="percent"
+      [radius]="70"
+      [outerStrokeGradient]='true'
+      [outerStrokeWidth]="10"
+      [outerStrokeColor]="graphColor"
+      [innerStrokeWidth]="0"
+      [outerStrokeGradientStopColor]="graphColor"
+      [innerStrokeColor]="'#C6E78B'"
+      [animation]="true"
+      [animationDuration]="300"
+      [clockwise]='false'
+      [startFromZero]='true'
+      [responsive]='true'
+      [imageSrc]="'assets/img/world.png'"
+      [imageHeight]='125'
+      [imageWidth]='130'
+      [showImage]='true'
+    ></circle-progress>
+    </div>
+  </div>
+  
+  <div class="row text-center">
+        <div class="col-md-12">
+                <h1 id="total"> {{steps | number}} / 58,933,823 ({{percent | number : '1.2-2'}}%)</h1>
+        </div>
+  </div>
+  <div class="row">
+        <div class="col-md-12 btn-group special btn-group-toggle text-center" data-toggle="buttons" style="padding-bottom: 20px;">
+                <button id="red"  (click)="onSelectTeam('RED')" type="button" class="btn btn-danger active">Red</button>        
+                <button id="green" (click)="onSelectTeam('GREEN')" type="button" class="btn btn-success">Green</button>                  
+                <button id="blue" (click)="onSelectTeam('BLUE')" type="button" class="btn btn-primary">Blue</button>   
+                <button id="yellow" (click)="onSelectTeam('YELLOW')" type="button" class="btn btn-warning">Yellow</button>
+        </div>
+  </div>
+  
+</div>
