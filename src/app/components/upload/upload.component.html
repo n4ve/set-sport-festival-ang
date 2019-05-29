@@ -1,0 +1,13 @@
+<section id="upload-data-panel">
+  <form id="upload-form" (ngSubmit)="onSubmit()" (change)="onFileSelect($event)" method="post" enctype="multipart/form-data">
+      <fieldset>
+          <legend>Upload Score</legend>
+          <div>
+              <input type="file" name="csvdata" accept="text/cvs">
+          </div>
+          <div>
+              <input type="submit" value="Submit"/>
+          </div>
+      </fieldset>
+  </form>
+</section>
