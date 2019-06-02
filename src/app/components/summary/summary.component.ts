@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { DataTableDirective } from 'angular-datatables';
 import { environment } from 'src/environments/environment';
 import { Lastupdate } from './../../models/response/lastupdate';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css']
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent implements OnInit, OnDestroy {
 
   @ViewChild(DataTableDirective)
   datatableElement: DataTableDirective;
@@ -27,6 +28,9 @@ export class SummaryComponent implements OnInit {
   lastUpdated: string;
   isSummary = true;
 
+  isShowSelectedTeam: boolean;
+  private sub: any;
+
   ranges: any = {
     'Today': [moment(), moment()],
     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -36,8 +40,17 @@ export class SummaryComponent implements OnInit {
     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
   };
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,  private route: ActivatedRoute) {
     this.lastUpdated = '';
+    this.sub = this.route.queryParamMap.subscribe(params => {
+      this.team = params.get('team');
+      if (this.team == null || this.team === '') {
+        this.team = 'RED';
+        this.isShowSelectedTeam = true;
+      } else {
+        this.isShowSelectedTeam = false;
+      }
+   });
   }
   ngOnInit() {
     this.dtOptions = {
@@ -84,5 +97,8 @@ export class SummaryComponent implements OnInit {
       });
     }
 
+    ngOnDestroy() {
+      this.sub.unsubscribe();
+    }
 
 }

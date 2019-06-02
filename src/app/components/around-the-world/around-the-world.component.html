@@ -32,7 +32,7 @@
                 <h1 id="total" class='font-harry-thai'> {{steps | number}} / 58,933,823 ({{percent | number : '1.2-2'}}%)</h1>
         </div>
   </div>
-  <div class="row">
+  <div  *ngIf="isShowSelectedTeam" class="row">
         <div class="col-md-12 btn-group special btn-group-toggle text-center" data-toggle="buttons" style="padding-bottom: 20px;">
                 <button id="red"  (click)="onSelectTeam('RED')" type="button" class="btn btn-danger active">Red</button>        
                 <button id="green" (click)="onSelectTeam('GREEN')" type="button" class="btn btn-success">Green</button>                  

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
           <div class="col-sm-4 text-center">
-                  <a href="#" onclick="document.location='/search';return false;" >
+                  <a href="#" routerLink="/search" [queryParams]="{team: team}">
                           <img src="assets/img/search.png" class="logo-size" />
                   </a>
                   <div class="row text-center">
@@ -11,7 +11,7 @@
                    </div>
               </div>
               <div class="col-sm-4 text-center">
-                <a href="#" onclick="document.location='/summary';return false;" >
+                <a href="#" routerLink="/summary" [queryParams]="{team: team}">
                     <img src="assets/img/ranking.png" class="logo-size" />
             </a>
             <div class="row text-center">
@@ -21,7 +21,7 @@
                 </div>
     </div>
               <div class="col-sm-4 text-center">
-                      <a href="#" onclick="document.location='/around-the-world';return false;" >
+                      <a href="#" routerLink="/around-the-world" [queryParams]="{team: team}" >
                           <img src="assets/img/around-the-world.png" class="logo-size" />
                   </a>
                   <div class="row text-center">

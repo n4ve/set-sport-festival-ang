@@ -4,6 +4,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CircleProgressComponent } from 'ng-circle-progress';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-around-the-world',
@@ -18,6 +19,11 @@ export class AroundTheWorldComponent implements OnInit, AfterViewInit {
   graphColor: string;
 
   lastUpdated: string;
+
+  team: string;
+  private sub: any;
+
+  isShowSelectedTeam: boolean;
 
   LAST_UPDATE_API_URL = `${environment.baseUrl}/api/last-updated`;
   AROUND_WORLD_API_URL = `${environment.baseUrl}/api/around-the-world`;
@@ -47,10 +53,21 @@ export class AroundTheWorldComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute) {
+    this.team = '';
     this.clearStep();
     this.lastUpdated = '';
-    this.setGraphColor('RED');
+    this.isShowSelectedTeam = true;
+    this.sub = this.route.queryParamMap.subscribe(params => {
+      this.team = params.get('team');
+      if (this.team != null) {
+        this.setGraphColor(this.team);
+        this.isShowSelectedTeam = false;
+      } else {
+        this.setGraphColor('RED');
+        this.isShowSelectedTeam = true;
+      }
+   });
   }
 
   ngOnInit() {

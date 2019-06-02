@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { DataTableDirective } from 'angular-datatables';
 import { environment } from 'src/environments/environment';
 import { Lastupdate } from './../../models/response/lastupdate';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective)
   datatableElement: DataTableDirective;
 
@@ -25,6 +26,9 @@ export class SearchComponent implements OnInit {
   LAST_UPDATE_API_URL = `${environment.baseUrl}/api/last-updated`;
   lastUpdated: string;
 
+  isShowSelectedTeam: boolean;
+  private sub: any;
+
   ranges: any = {
     'Today': [moment(), moment()],
     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -34,8 +38,17 @@ export class SearchComponent implements OnInit {
     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
   };
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,  private route: ActivatedRoute) {
     this.lastUpdated = '';
+    this.sub = this.route.queryParamMap.subscribe(params => {
+      this.team = params.get('team');
+      if (this.team == null || this.team === '') {
+        this.team = 'RED';
+        this.isShowSelectedTeam = true;
+      } else {
+        this.isShowSelectedTeam = false;
+      }
+   });
   }
 
 
@@ -82,6 +95,10 @@ export class SearchComponent implements OnInit {
         dtInstance.ajax.reload();
         dtInstance.draw();
       });
+    }
+
+    ngOnDestroy() {
+      this.sub.unsubscribe();
     }
 
   }

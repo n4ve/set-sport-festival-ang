@@ -6,8 +6,8 @@
       </div>
     </div>
 
-    <div class="row" style='margin: 5,5,5,5'>
-      <div class="col-md-6 btn-group btn-group-toggle" data-toggle="buttons">
+    <div  class="row" style='margin: 5,5,5,5'>
+      <div  *ngIf="isShowSelectedTeam" class="col-md-6 btn-group btn-group-toggle" data-toggle="buttons">
         <button id="red" (click)="modeOnClick('RED')" type="button" class="btn btn-danger active">Red</button>
         <button id="green" (click)="modeOnClick('GREEN')" type="button" class="btn btn-success">Green</button>
         <button id="blue" (click)="modeOnClick('BLUE')" type="button" class="btn btn-primary">Blue</button>
