@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-const port = process.env.PORT || 5000;
+const port = 5000;
  
 // For the database
 var sqlite3 = require('sqlite3');
@@ -27,16 +27,6 @@ var upload = multer({ dest: 'uploads/' })
 // Add restful controller
 require('./ScoreController')(app, db, jsonParser);
 require('./UploadScoreController')(app, db, csv, upload);
-
-app.use(express.static(__dirname + '/public'));
-
-// set the home page route
-app.get('/', function(req, res) {
-
-    // ejs render automatically looks in the views folder
-    res.render('index');
-});
-
 
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}/`);
