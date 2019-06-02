@@ -2,6 +2,7 @@
 var express = require('express');
 var app = express();
 var multer  = require('multer')
+var moment = require('moment')
  
 // For receiving JSON in posts
 var bodyParser = require('body-parser');
@@ -26,7 +27,7 @@ var upload = multer({ dest: 'uploads/' })
 
 // Add restful controller
 require('./ScoreController')(app, db, jsonParser);
-require('./UploadScoreController')(app, db, csv, upload);
+require('./UploadScoreController')(app, db, csv, upload,moment);
 
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}/`);

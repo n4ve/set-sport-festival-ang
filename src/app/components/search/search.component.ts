@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { DataTableDirective } from 'angular-datatables';
+import { environment } from 'src/environments/environment';
+import { Lastupdate } from './../../models/response/lastupdate';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-search',
@@ -19,6 +22,9 @@ export class SearchComponent implements OnInit {
   };
   team: String = 'RED';
 
+  LAST_UPDATE_API_URL = `${environment.baseUrl}/api/last-updated`;
+  lastUpdated: string;
+
   ranges: any = {
     'Today': [moment(), moment()],
     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -28,7 +34,8 @@ export class SearchComponent implements OnInit {
     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
   };
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
+    this.lastUpdated = '';
   }
 
 
@@ -53,6 +60,12 @@ export class SearchComponent implements OnInit {
           { title: 'Date', data: 'date' }
         ],
       };
+      this.httpClient.get<Lastupdate>(this.LAST_UPDATE_API_URL).subscribe(
+        (response) => {
+          this.lastUpdated = response.lastUpdated;
+        },
+        (err) => console.log(err)
+      );
     }
 
     modeOnClick(mode: String) {

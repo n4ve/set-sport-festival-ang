@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-upload',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UploadComponent implements OnInit {
 
-  SERVER_URL = 'http://localhost:5000/api/upload';
+  SERVER_URL = `${environment.baseUrl}/api/upload`;
   uploadForm: FormGroup;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private httpClient: HttpClient) { }

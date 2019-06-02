@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row text-center">
     <div class="col-md-12">
-            <h1 class="font-harry">Run Around The World</h1>
+            <h1 class="font-harry-thai font-big">ยิ้มให้มันไปรันรอบโลก</h1>
     </div>
   </div>
   <div class="row">
@@ -15,7 +15,7 @@
       [outerStrokeGradientStopColor]="graphColor"
       [innerStrokeColor]="'#C6E78B'"
       [animation]="true"
-      [animationDuration]="300"
+      [animationDuration]="150"
       [clockwise]='false'
       [startFromZero]='true'
       [responsive]='true'
@@ -29,7 +29,7 @@
   
   <div class="row text-center">
         <div class="col-md-12">
-                <h1 id="total"> {{steps | number}} / 58,933,823 ({{percent | number : '1.2-2'}}%)</h1>
+                <h1 id="total" class='font-harry-thai'> {{steps | number}} / 58,933,823 ({{percent | number : '1.2-2'}}%)</h1>
         </div>
   </div>
   <div class="row">
@@ -39,6 +39,11 @@
                 <button id="blue" (click)="onSelectTeam('BLUE')" type="button" class="btn btn-primary">Blue</button>   
                 <button id="yellow" (click)="onSelectTeam('YELLOW')" type="button" class="btn btn-warning">Yellow</button>
         </div>
+  </div>
+  <div class="row">
+      <div class="col-md-5 offset-md-7">
+          <h6>Last Sync from Pacer by {{lastUpdated}}</h6>
+      </div>
   </div>
   
 </div>

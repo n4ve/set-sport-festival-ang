@@ -1,11 +1,13 @@
 
-module.exports = function(app,db,csv, upload) {
+module.exports = function(app,db,csv, upload, moment) {
     // accepts the POST form submit of the CSV file
+    
     console.log("Registering endpoint: /api/upload");
     app.post("/api/upload", upload.single('csvdata'),function(req, res) {
         // the name under "files" must correspond to the name of the
         // file input field in the submitted form (here: "csvdata")
 
+        
         if (!req.file) return res.send('Please upload a file')
 
         console.log("START");
@@ -40,12 +42,28 @@ module.exports = function(app,db,csv, upload) {
         // when the end of the CSV document is reached
         .on("end", function() {
             // redirect back to the root
+            console.log('Finished')
+            console.log('Start Update Time')
+            const now = moment().utcOffset('+0700').format('DD/MM/YYYY HH:mm');
+            console.log([1, now])
+            let sqlUpdate = 'INSERT OR REPLACE INTO lastupdated (i,last_updated) VALUES (?,?)'
+            db.run(sqlUpdate,[1,now])
+            console.log('Update Finished')
             res.send()
         })
         // if any errors occur
         .on("error", function(error) {
-            console.log('error!!');
-            console.log(error.message);
+            console.log('Error' + error.message);
         });
+    });
+
+    console.log("Registering endpoint: /api/last-updated");
+    app.get('/api/last-updated', function(req, res){ 
+        let sql = `SELECT last_updated AS lastUpdated FROM lastupdated WHERE i= 1`;
+        console.log(sql);
+        db.get(sql , function(err, row) {
+            console.log(row);
+            res.json(row); 
+        });                        
     });
 };

@@ -1,7 +1,9 @@
+import { Lastupdate } from './../../models/response/lastupdate';
 import { Aroundworld } from './../../models/response/aroundworld';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CircleProgressComponent } from 'ng-circle-progress';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-around-the-world',
@@ -15,7 +17,10 @@ export class AroundTheWorldComponent implements OnInit, AfterViewInit {
   percent: number;
   graphColor: string;
 
-  API_URL = 'http://localhost:5000/api/around-the-world';
+  lastUpdated: string;
+
+  LAST_UPDATE_API_URL = `${environment.baseUrl}/api/last-updated`;
+  AROUND_WORLD_API_URL = `${environment.baseUrl}/api/around-the-world`;
 
 
   setSteps(steps: number) {
@@ -43,13 +48,19 @@ export class AroundTheWorldComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private httpClient: HttpClient) {
-    this.steps = 0;
-    this.percent = 0;
+    this.clearStep();
+    this.lastUpdated = '';
     this.setGraphColor('RED');
   }
 
   ngOnInit() {
     this.onSelectTeam('RED');
+    this.httpClient.get<Lastupdate>(this.LAST_UPDATE_API_URL).subscribe(
+      (response) => {
+        this.lastUpdated = response.lastUpdated;
+      },
+      (err) => console.log(err)
+    );
   }
 
   ngAfterViewInit() {
@@ -57,15 +68,21 @@ export class AroundTheWorldComponent implements OnInit, AfterViewInit {
   }
 
   onSelectTeam(team) {
+    this.clearStep();
     this.setGraphColor(team);
     let params = new HttpParams();
     params = params.append('team', team);
-    this.httpClient.get<Aroundworld>(this.API_URL, {params: params}).subscribe(
+    this.httpClient.get<Aroundworld>(this.AROUND_WORLD_API_URL, {params: params}).subscribe(
       (response) => {
         this.setSteps(response.total);
       },
       (err) => console.log(err)
     );
+  }
+
+  clearStep() {
+    this.steps = 0;
+    this.percent = 0;
   }
 
 }
