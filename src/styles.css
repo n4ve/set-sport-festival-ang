@@ -10,8 +10,8 @@ body {
 
   .logo-size {
     max-width: 100%;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
   }
 
   .btn-group.special {
@@ -71,8 +71,8 @@ body {
       font-size: 17px;
     }
     .logo-size {
-      width: 240px;
-      height: 240px;
+      width: 180px;
+      height: 180px;
     }
   }
 
@@ -81,8 +81,8 @@ body {
       font-size: 16px;
     }
     .logo-size {
-      width: 200px;
-      height: 200px;
+      width: 150;
+      height: 150;
     }
   }
 
@@ -103,8 +103,8 @@ body {
       font-size: 13px;
     }
     .logo-size {
-      width: 180px;
-      height: 180px;
+      width: 120px;
+      height: 120px;
     }
   }
 
