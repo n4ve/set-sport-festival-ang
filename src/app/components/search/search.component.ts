@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.dtOptions = {
       searching: true,
-      order: [[3, 'dsc']],
+      order: [[3, 'dsc'], [2, 'dsc']],
       data: [],
       ajax: {
         url: '/api/score',
