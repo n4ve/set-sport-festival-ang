@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './components/search/search.component';
 import { AroundTheWorldComponent } from './components/around-the-world/around-the-world.component';
-import { RankingComponent } from './components/ranking/ranking.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
@@ -16,14 +15,15 @@ import { FormsModule } from '@angular/forms';
 import { UploadComponent } from './components/upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SummaryComponent } from './components/summary/summary.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'search', component: SearchComponent },
   { path: 'around-the-world', component: AroundTheWorldComponent },
   {
-    path: 'ranking',
-    component: RankingComponent
+    path: 'summary',
+    component: SummaryComponent
   },
   {
     path: 'upload',
@@ -37,9 +37,9 @@ const routes: Routes = [
     AppComponent,
     SearchComponent,
     AroundTheWorldComponent,
-    RankingComponent,
     HomeComponent,
     UploadComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,

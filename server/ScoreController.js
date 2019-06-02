@@ -12,18 +12,25 @@ module.exports = function(app, db, jsonParser){
         let startDate = "\'" + req.query.startDate + "\'";
         let endDate = "\'" + req.query.endDate + "\'";
         let team = "\'" + req.query.team + "\'";
+        let isSummary = req.query.isSummary;
+        console.log('isSum' + isSummary);
 
         let startDateCondition = startDate != "\'\'" ? (" AND date >= " + startDate) : ""
         let endDateCondition = endDate != "\'\'" ? (" AND date <= " + endDate) : ""
         var sql = ""
+        console.log(isSummary == 'true');
+        var dataSelect = (isSummary == 'true') ? "team ,fullname , SUM(score) AS score" : "*";
+        console.log('data' + dataSelect);
         if (team != "\'ALL\'") {
-            sql = "SELECT * FROM score WHERE team == " + team  + startDateCondition + endDateCondition
+            sql = `SELECT ${dataSelect} FROM score WHERE team == ` + team  + startDateCondition + endDateCondition
         } else {
             startDateCondition = startDate != "\'\'" ? ("date >= " + startDate) : ""
-            endDateCondition = endDate != "\'\'" ? ( (startDate != null ? " AND " : "") + "date <= " + endDate) : ""
+            endDateCondition = endDate != "\'\'" ? ( (startDate != null ? " AND " : "") + "date <= " + endDate) : "";
             if( startDateCondition != "" || endDateCondition != "") condition = " WHERE " + startDateCondition + endDateCondition
-            sql = "SELECT * FROM score"  + condition;
+            sql = `SELECT ${dataSelect} FROM score`  + condition;
         }
+
+        if (isSummary == 'true') sql = sql + ' GROUP BY account_id';
         
         console.log(sql);
         db.all(sql, function(err, rows) {
