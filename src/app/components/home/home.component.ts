@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  team: string;
+  team: String;
   private sub: any;
 
   constructor(private route: ActivatedRoute) {

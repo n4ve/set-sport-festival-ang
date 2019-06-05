@@ -2,7 +2,11 @@
 <div class="container">
   <div class="row text-center">
     <div class="col-md-12">
-      <h1 class="font-harry-thai font-big">ดูผลรวม</h1>
+      <h1 class="font-harry-thai font-big">ดูผลรวม</h1> 
+      <h1 *ngIf="team=='RED'" class="font-harry-thai font-big" style="color: #e84937">สีแดง</h1>
+      <h1 *ngIf="team=='GREEN'"class="font-harry-thai font-big" style="color: #68b758">สีเขียว</h1>
+      <h1 *ngIf="team=='YELLOW'"class="font-harry-thai font-big" style="color: #f4d142">สีเหลือง</h1>
+      <h1 *ngIf="team=='BLUE'" class="font-harry-thai font-big" style="color: #4286f4">สีฟ้า</h1>
     </div>
   </div>
 

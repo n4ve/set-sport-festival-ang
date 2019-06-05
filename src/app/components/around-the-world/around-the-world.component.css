@@ -1,3 +1,19 @@
 .row-centered {
     text-align:center;
 }
+
+::ng-deep #redCircle > svg > path {
+    stroke: #fd2913;
+}
+
+::ng-deep #greenCircle > svg > path {
+    stroke: #009529;
+}
+
+::ng-deep #blueCircle > svg > path {
+    stroke: #4882c2;
+}
+
+::ng-deep #yellowCircle > svg > path {
+    stroke: #ffbc00;
+}
