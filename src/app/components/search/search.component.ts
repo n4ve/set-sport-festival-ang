@@ -70,7 +70,9 @@ export class SearchComponent implements OnInit, OnDestroy {
           { title: 'Team', data: 'team' },
           { title: 'Name', data: 'fullname' },
           { title: 'Score', data: 'score', render: $.fn.dataTable.render.number(',', '.', 0) },
-          { title: 'Date', data: 'date' }
+          { title: 'Date', data: 'date' , render: function(data) {
+            return moment(data).format('DD/MM/YYYY');
+          }}
         ],
       };
       this.httpClient.get<Lastupdate>(this.LAST_UPDATE_API_URL).subscribe(
