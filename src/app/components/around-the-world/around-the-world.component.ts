@@ -23,6 +23,15 @@ export class AroundTheWorldComponent implements OnInit, AfterContentInit {
   stepsBlue: number;
   stepsYellow: number;
 
+  stepsRedM1: number;
+  stepsRedM2: number;
+  stepsGreenM1: number;
+  stepsGreenM2: number;
+  stepsBlueM1: number;
+  stepsBlueM2: number;
+  stepsYellowM1: number;
+  stepsYellowM2: number;
+
 
   percentRed: number;
   percentGreen: number;
@@ -38,6 +47,8 @@ export class AroundTheWorldComponent implements OnInit, AfterContentInit {
 
   LAST_UPDATE_API_URL = `${environment.baseUrl}/api/last-updated`;
   AROUND_WORLD_API_URL = `${environment.baseUrl}/api/around-the-world`;
+  MONTH1_API_URL = `${environment.baseUrl}/api/month/1`;
+  MONTH2_API_URL = `${environment.baseUrl}/api/month/2`;
 
   constructor(private httpClient: HttpClient, private route: ActivatedRoute) {
     this.team = '';
@@ -64,6 +75,18 @@ export class AroundTheWorldComponent implements OnInit, AfterContentInit {
       },
       (err) => console.log(err)
     );
+    this.httpClient.get<Aroundworld>(this.MONTH1_API_URL, {params: redParams}).subscribe(
+      (response) => {
+        this.stepsRedM1 = response.total;
+      },
+      (err) => console.log(err)
+    );
+    this.httpClient.get<Aroundworld>(this.MONTH2_API_URL, {params: redParams}).subscribe(
+      (response) => {
+        this.stepsRedM2 = response.total;
+      },
+      (err) => console.log(err)
+    );
 
     let greenParams = new HttpParams();
     greenParams = greenParams.append('team', 'GREEN');
@@ -71,6 +94,18 @@ export class AroundTheWorldComponent implements OnInit, AfterContentInit {
       (response) => {
         this.stepsGreen = response.total;
         this.percentGreen = (this.stepsGreen / 58933823) * 100;
+      },
+      (err) => console.log(err)
+    );
+    this.httpClient.get<Aroundworld>(this.MONTH1_API_URL, {params: greenParams}).subscribe(
+      (response) => {
+        this.stepsGreenM1 = response.total;
+      },
+      (err) => console.log(err)
+    );
+    this.httpClient.get<Aroundworld>(this.MONTH2_API_URL, {params: greenParams}).subscribe(
+      (response) => {
+        this.stepsGreenM2 = response.total;
       },
       (err) => console.log(err)
     );
@@ -85,6 +120,18 @@ export class AroundTheWorldComponent implements OnInit, AfterContentInit {
       },
       (err) => console.log(err)
     );
+    this.httpClient.get<Aroundworld>(this.MONTH1_API_URL, {params: blueParams}).subscribe(
+      (response) => {
+        this.stepsBlueM1 = response.total;
+      },
+      (err) => console.log(err)
+    );
+    this.httpClient.get<Aroundworld>(this.MONTH2_API_URL, {params: blueParams}).subscribe(
+      (response) => {
+        this.stepsBlueM2 = response.total;
+      },
+      (err) => console.log(err)
+    );
 
     let yellowParams = new HttpParams();
     yellowParams = yellowParams.append('team', 'YELLOW');
@@ -96,6 +143,19 @@ export class AroundTheWorldComponent implements OnInit, AfterContentInit {
       },
       (err) => console.log(err)
     );
+    this.httpClient.get<Aroundworld>(this.MONTH1_API_URL, {params: yellowParams}).subscribe(
+      (response) => {
+        this.stepsYellowM1 = response.total;
+      },
+      (err) => console.log(err)
+    );
+    this.httpClient.get<Aroundworld>(this.MONTH2_API_URL, {params: yellowParams}).subscribe(
+      (response) => {
+        this.stepsYellowM2 = response.total;
+      },
+      (err) => console.log(err)
+    );
+
   }
 
   ngAfterContentInit() {
