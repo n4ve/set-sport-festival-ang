@@ -31,7 +31,7 @@
     "fast-csv": "^2.5.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "multer": "^1.4.1",
     "ng-circle-progress": "^1.4.1",
     "ng2-slim-loading-bar": "^4.0.0",
